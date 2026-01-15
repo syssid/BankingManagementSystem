@@ -1,4 +1,5 @@
 # BankingManagementSystem
+![Build Status](https://github.com/syssid/BankingManagementSystem/actions/workflows/bank.yml/badge.svg)
 
 ## Overview
 BankingManagementSystem is a layered banking application designed using Clean Architecture principles.
