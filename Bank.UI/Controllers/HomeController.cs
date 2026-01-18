@@ -76,10 +76,10 @@ namespace Bank.UI.Controllers
             return RedirectToAction("Index");
         }
 
-        /*        public IActionResult Logout()
+                public IActionResult Logout()
                 {
                     HttpContext.Session.Clear();
                     return RedirectToAction("Index", "Home");
-                }*/
+                }
     }
 }

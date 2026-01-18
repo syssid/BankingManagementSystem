@@ -1,0 +1,53 @@
+﻿body {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 35px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.login-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 35px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+.form-control {
+    height: 45px;
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #1e3c72;
+}
+
+.btn-primary {
+    background-color: #1e3c72;
+    border: none;
+}
+
+    .btn-primary:hover {
+        background-color: #16315e;
+    }
+
+.link {
+    text-decoration: none;
+    color: #1e3c72;
+}
+
+    .link:hover {
+        text-decoration: underline;
+    }

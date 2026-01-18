@@ -1,7 +1,133 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@{
+    ViewData["Title"] = "Dashboard";
 }
 
-<h1>Index</h1>
+<div class="container-fluid">
+    <h3 class="mb-4 fw-semibold">Welcome back, @User.Identity?.Name 👋</h3>
 
+    <!-- KPI Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Total Balance</h6>
+                    <h4 class="fw-bold">$125,430.00</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Savings</h6>
+                    <h4 class="fw-bold">$82,300.00</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Loans</h6>
+                    <h4 class="fw-bold">$24,000.00</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Credit Used</h6>
+                    <h4 class="fw-bold">$6,120.00</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts + Actions -->
+    <div class="row g-3 mb-4">
+        <div class="col-lg-8">
+            <div class="card shadow-sm h-100">
+                <div class="card-header fw-semibold">
+                    Account Activity
+                </div>
+                <div class="card-body">
+                    <canvas id="balanceChart" height="110"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header fw-semibold">
+                    Quick Actions
+                </div>
+                <div class="card-body d-grid gap-2">
+                    <a asp-controller="Transactions" asp-action="Transfer" class="btn btn-primary">
+                        Transfer Money
+                    </a>
+                    <a asp-controller="Accounts" asp-action="Create" class="btn btn-outline-secondary">
+                        Open New Account
+                    </a>
+                    <a asp-controller="Loans" asp-action="Apply" class="btn btn-outline-secondary">
+                        Apply for Loan
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Transactions -->
+    <div class="card shadow-sm">
+        <div class="card-header fw-semibold">
+            Recent Transactions
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th class="text-end">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10 Jan 2026</td>
+                        <td>ATM Withdrawal</td>
+                        <td>Debit</td>
+                        <td class="text-end text-danger">- $500</td>
+                    </tr>
+                    <tr>
+                        <td>08 Jan 2026</td>
+                        <td>Salary Credit</td>
+                        <td>Credit</td>
+                        <td class="text-end text-success">+ $4,500</td>
+                    </tr>
+                    <tr>
+                        <td>05 Jan 2026</td>
+                        <td>Electricity Bill</td>
+                        <td>Debit</td>
+                        <td class="text-end text-danger">- $120</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('balanceChart');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+                datasets: [{
+                    label: 'Balance',
+                    data: [120000, 121200, 121000, 122500, 123800, 124900, 125430],
+                    borderWidth: 2,
+                    tension: 0.4
+                }]
+            }
+        });
+    </script>
+}

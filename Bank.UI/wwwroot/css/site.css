@@ -20,3 +20,63 @@ html {
 body {
   margin-bottom: 60px;
 }
+    /* =========================
+   DARK MODE STYLES
+========================= */
+
+    body.dark-mode {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+        /* Navbar */
+        body.dark-mode .navbar {
+            background-color: #1f2933 !important;
+        }
+
+            body.dark-mode .navbar .nav-link,
+            body.dark-mode .navbar .navbar-brand {
+                color: #e0e0e0 !important;
+            }
+
+        body.dark-mode .dropdown-menu {
+            background-color: #1f2933;
+            border-color: #374151;
+        }
+
+        body.dark-mode .dropdown-item {
+            color: #e0e0e0;
+        }
+
+            body.dark-mode .dropdown-item:hover {
+                background-color: #374151;
+            }
+
+        /* Cards */
+        body.dark-mode .card {
+            background-color: #1f2933;
+            border-color: #374151;
+            color: #e0e0e0;
+        }
+
+        /* Tables */
+        body.dark-mode .table {
+            color: #e0e0e0;
+        }
+
+            body.dark-mode .table thead {
+                background-color: #374151;
+            }
+
+        /* Footer */
+        body.dark-mode footer {
+            background-color: #1f2933;
+            color: #9ca3af;
+        }
+
+        /* Buttons */
+        body.dark-mode .btn-outline-light {
+            border-color: #9ca3af;
+            color: #e0e0e0;
+        }
+
