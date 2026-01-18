@@ -1,19 +1,18 @@
 ﻿@{
     Layout = null;
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Registration";
 }
 
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <title>Register - Bank.UI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="~/css/login_registration.css" asp-append-version="true" />
-
 </head>
 
 <body>
@@ -22,7 +21,11 @@
             <div class="brand">🏦</div>
             <p class="text-muted">Create your account</p>
         </div>
-        <form asp-action="Register" method="post">
+
+        <!-- REGISTER FORM -->
+        <form asp-controller="Registration" asp-action="Register" method="post">
+            @Html.AntiForgeryToken()
+
             <div class="mb-3">
                 <label class="form-label">Full Name</label>
                 <input name="FullName" type="text" class="form-control" required />
@@ -49,7 +52,11 @@
 
             <div class="text-center">
                 <span class="text-muted">Already have an account?</span>
-                <a asp-action="Index" class="link fw-bold"> Login</a>
+                <a asp-controller="Login"
+                   asp-action="Login"
+                   class="link fw-bold">
+                    Login
+                </a>
             </div>
 
             @if (ViewBag.Error != null)
@@ -59,10 +66,10 @@
                 </div>
             }
 
-            @if (ViewBag.Success != null)
+            @if (TempData["Success"] != null)
             {
                 <div class="alert alert-success mt-3">
-                    @ViewBag.Success
+                    @TempData["Success"]
                 </div>
             }
         </form>

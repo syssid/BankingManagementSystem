@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,7 +41,10 @@ namespace Bank.Infrastructure.DependencyInjection
                     ValidIssuer = configuration["Jwt:Issuer"],
                     ValidAudience = configuration["Jwt:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey
-                    (Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))
+                    (Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!)),
+
+                    NameClaimType = ClaimTypes.Name,
+                    RoleClaimType = ClaimTypes.Role
                 };
             });
 
