@@ -54,7 +54,7 @@ namespace Bank.UI.Controllers
 
             TempData["Success"] = result?.Message;
 
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

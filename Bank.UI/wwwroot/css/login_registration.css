@@ -5,7 +5,10 @@
     align-items: center;
     justify-content: center;
 }
-
+.spinner-border {
+    width: 2.5rem;
+    height: 2.5rem;
+}
 .register-card {
     background: #fff;
     border-radius: 12px;

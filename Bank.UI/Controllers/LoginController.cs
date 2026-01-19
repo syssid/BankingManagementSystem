@@ -20,7 +20,7 @@ namespace Bank.UI.Controllers
             if (IsLoggedIn)
                 return RedirectToAction("Index", "Dashboard");
 
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
