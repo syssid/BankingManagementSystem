@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
+    @await Html.PartialAsync("_Loader")
     @if (isLoggedIn)
     {
         <header>
@@ -29,7 +30,7 @@
                        asp-action="Index">
                         <i class="bi bi-bank"></i> Bank.UI
                     </a>
-x
+                    x
 
                     <!-- Toggle -->
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
