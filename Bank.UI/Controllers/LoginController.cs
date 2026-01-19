@@ -1,7 +1,11 @@
 ﻿using Bank.UI.Models.Account.Request;
 using Bank.UI.Models.Account.Response;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Json;
+using System.Security.Claims;
 
 namespace Bank.UI.Controllers
 {
@@ -43,6 +47,23 @@ namespace Bank.UI.Controllers
 
             var result = await response
                 .Content.ReadFromJsonAsync<LoginResponseViewModel>();
+
+            var handler = new JwtSecurityTokenHandler();
+            var jwt = handler.ReadJwtToken(result!.Token);
+
+            var claims = jwt.Claims.ToList();
+
+            var identity = new ClaimsIdentity(
+                claims,
+                CookieAuthenticationDefaults.AuthenticationScheme
+            );
+
+            var principal = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                principal
+            );
 
             HttpContext.Session.SetString("Token", result!.Token);
 
