@@ -32,6 +32,16 @@ namespace Bank.UI.DependencyInjection
                 options.Cookie.IsEssential = true;
             });
 
+            services.AddAuthentication("Cookies")
+                    .AddCookie("Cookies", options =>
+                    {
+                        options.LoginPath = "/Home/Index";
+                        options.LogoutPath = "/Logout/Logout";
+                        options.AccessDeniedPath = "/Home/Index";
+                    });
+
+            services.AddAuthorization();
+
 
             return services;
         }
