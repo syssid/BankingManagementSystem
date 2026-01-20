@@ -26,12 +26,13 @@
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
                 <div class="container-fluid">
                     <!-- Brand -->
-                    <a class="navbar-brand fw-bold"
+                    <a id="dashboardBrand"
+                       class="navbar-brand fw-bold"
                        asp-controller="Dashboard"
-                       asp-action="Index">
+                       asp-action="Index"
+                       data-url="/Dashboard/Index">
                         <i class="bi bi-bank"></i> Bank.UI
                     </a>
-                    x
 
                     <!-- Toggle -->
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -194,12 +195,6 @@
             @RenderBody()
         </main>
     </div>
-
-@*     <footer class="border-top footer text-muted mt-4">
-        <div class="container text-center">
-            &copy; 2026 - Bank.UI | Secure Banking Application
-        </div>
-    </footer> *@
 
     <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
