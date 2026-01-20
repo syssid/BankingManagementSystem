@@ -8,6 +8,8 @@ namespace Bank.UI.DependencyInjection
         public static IServiceCollection StartUpServices(this IServiceCollection services,
             IConfiguration configuration)
         {
+            services.AddHttpClient();
+
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new ResponseCacheAttribute

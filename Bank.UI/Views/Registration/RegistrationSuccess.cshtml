@@ -1,0 +1,90 @@
+﻿@{
+    Layout = null;
+    var message = TempData["Message"]?.ToString();
+    var isSuccess = TempData["IsSuccess"] as bool? ?? false;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Status</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link href="~/css/registrationsuccess.css" rel="stylesheet" />
+</head>
+
+<body class="@(isSuccess ? "bg-success-gradient" : "bg-warning-gradient")">
+
+    <div class="status-card">
+        <div class="status-icon mb-3 @(isSuccess ? "icon-success" : "icon-warning")">
+            <i class="bi @(isSuccess ? "bi-check-circle-fill" : "bi-exclamation-triangle-fill")"></i>
+        </div>
+
+        <h4 class="fw-bold @(isSuccess ? "text-success" : "text-warning") mb-2">
+            @(isSuccess ? "Registration Successful" : "Action Required")
+        </h4>
+
+        <p class="text-muted mb-3">
+            @message
+        </p>
+
+        @if (isSuccess)
+        {
+            <p class="fw-semibold">
+                Redirecting to login in
+                <span id="countdown" class="text-primary">10</span> seconds
+            </p>
+
+            <div class="progress">
+                <div id="progressBar"
+                     class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                     style="width:100%">
+                </div>
+            </div>
+        }
+
+        @if (isSuccess)
+        {
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="btn btn-outline-primary mt-4">
+                Go to Login
+            </a>
+        }
+        else
+        {
+            <a asp-controller="Registration"
+               asp-action="Register"
+               class="btn btn-warning mt-4">
+                Try Again
+            </a>
+        }
+
+    </div>
+
+    @if (isSuccess)
+    {
+        <script>
+            let seconds = 10;
+            const countdown = document.getElementById("countdown");
+            const progressBar = document.getElementById("progressBar");
+            const total = seconds;
+
+            const interval = setInterval(() => {
+                seconds--;
+                countdown.textContent = seconds;
+                progressBar.style.width = (seconds / total * 100) + "%";
+
+                if (seconds <= 0) {
+                    clearInterval(interval);
+                    window.location.href = "/Home/Index";
+                }
+            }, 1000);
+        </script>
+    }
+
+</body>
+</html>

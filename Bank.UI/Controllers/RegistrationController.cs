@@ -50,11 +50,19 @@ namespace Bank.UI.Controllers
             }
 
             var result = await response.Content
-                .ReadFromJsonAsync<RegistrationResponseViewModel>();
+                        .ReadFromJsonAsync<RegistrationResponseViewModel>();
 
-            TempData["Success"] = result?.Message;
+            TempData["Message"] = result?.Message;
 
-            return RedirectToAction("Index", "Home");
+            // determine status
+            TempData["IsSuccess"] = result?.Flag;
+
+            return RedirectToAction("RegistrationSuccess");
         }
+        public IActionResult RegistrationSuccess()
+        {
+            return View();
+        }
+
     }
 }
