@@ -32,29 +32,41 @@ namespace Bank.UI.Controllers
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
             if (!ModelState.IsValid)
-                return View(vm);
+            {
+                return View("~/Views/Home/Index.cshtml", vm);
+            }
 
-            var apiRequest = new { vm.Email, vm.Password };
+            var apiRequest = new
+            {
+                vm.Email,
+                vm.Password
+            };
 
             var response = await _httpClient
                 .PostAsJsonAsync("api/user/login", apiRequest);
 
             if (!response.IsSuccessStatusCode)
             {
-                ViewBag.Error = "Invalid email or password";
-                return View(vm);
+                ViewBag.Error = "Unable to login. Please try again.";
+                return View("~/Views/Home/Index.cshtml", vm);
             }
 
             var result = await response
                 .Content.ReadFromJsonAsync<LoginResponseViewModel>();
 
-            var handler = new JwtSecurityTokenHandler();
-            var jwt = handler.ReadJwtToken(result!.Token);
+            // 🚫 User not found / invalid credentials
+            if (result == null || result.Flag == false)
+            {
+                ViewBag.Error = result?.Message ?? "Invalid email or password";
+                return View("~/Views/Home/Index.cshtml", vm);
+            }
 
-            var claims = jwt.Claims.ToList();
+            // ✅ SUCCESS
+            var handler = new JwtSecurityTokenHandler();
+            var jwt = handler.ReadJwtToken(result.Token!);
 
             var identity = new ClaimsIdentity(
-                claims,
+                jwt.Claims,
                 CookieAuthenticationDefaults.AuthenticationScheme
             );
 
@@ -65,9 +77,10 @@ namespace Bank.UI.Controllers
                 principal
             );
 
-            HttpContext.Session.SetString("Token", result!.Token);
+            HttpContext.Session.SetString("Token", result.Token!);
 
             return RedirectToAction("Index", "Dashboard");
         }
+
     }
 }
