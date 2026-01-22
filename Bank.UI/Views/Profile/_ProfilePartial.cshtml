@@ -1,0 +1,33 @@
+﻿@using Bank.UI.Models.Profile
+@model ProfileViewModel
+
+<div class="modal-header">
+    <h5 class="modal-title">My Profile</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+</div>
+
+<div class="modal-body">
+    <form id="profileForm">
+        <div class="mb-3">
+            <label>Full Name</label>
+            <input asp-for="FullName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Email</label>
+            <input asp-for="Email" class="form-control" readonly />
+        </div>
+
+        <div class="mb-3">
+            <label>Mobile</label>
+            <input asp-for="Mobile" class="form-control" />
+        </div>
+    </form>
+
+    <div id="profileMsg" class="alert d-none"></div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+</div>

@@ -1,12 +1,37 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bank.UI.Models.Profile;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.UI.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : BaseController
     {
-        public IActionResult Index()
+        private readonly HttpClient _httpClient;
+
+        public ProfileController(IHttpClientFactory httpClientFactory)
         {
-            return View();
+            _httpClient = httpClientFactory.CreateClient("BankAPI");
+        }
+
+        public async Task<IActionResult> ProfilePartial()
+        {
+            var response = await _httpClient.GetAsync("api/user/profile");
+
+            if (!response.IsSuccessStatusCode)
+                return PartialView("_ProfileError");
+
+            var model = await response.Content.ReadFromJsonAsync<ProfileViewModel>();
+            return PartialView("_ProfilePartial", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(ProfileViewModel model)
+        {
+            var response = await _httpClient.PutAsJsonAsync("api/user/profile", model);
+
+            if (!response.IsSuccessStatusCode)
+                return BadRequest("Update failed");
+
+            return Ok("Profile updated successfully");
         }
     }
 }
