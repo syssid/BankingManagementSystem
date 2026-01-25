@@ -8,11 +8,19 @@ using System.Threading.Tasks;
 
 namespace Bank.Infrastructure.Data
 {
-    internal class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
         public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationUser>()
+                .HasOne(u => u.Profile)
+                .WithOne(p => p.ApplicationUser)
+                .HasForeignKey<UserProfile>(p => p.ApplicationUserId);
+        }
     }
 }
