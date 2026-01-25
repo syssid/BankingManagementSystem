@@ -26,6 +26,9 @@ namespace Bank.Infrastructure.DependencyInjection
 
             });
 
+            services.AddScoped<IUser, UserRepository>();
+            services.AddScoped<IUserProfile, ProfileDetailsRepository>();
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -48,7 +51,6 @@ namespace Bank.Infrastructure.DependencyInjection
                 };
             });
 
-            services.AddScoped<IUser, UserRepository>();
             return services;
         }
     }

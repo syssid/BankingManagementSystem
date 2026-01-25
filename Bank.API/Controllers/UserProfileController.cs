@@ -1,0 +1,64 @@
+﻿using Bank.Application.Contracts;
+using Bank.Application.DTO.Request.UserProfile;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+
+namespace Bank.API.Controllers
+{
+    [Route("api/user/profile")]
+    [ApiController]
+    [Authorize]
+    public class UserProfileController : ControllerBase
+    {
+        private readonly IUserProfile _userProfile;
+
+        public UserProfileController(IUserProfile userProfile)
+        {
+            _userProfile = userProfile;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProfile()
+        {
+            int userId = GetUserId();
+            var result = await _userProfile.GetProfileAsync(userId);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProfile(
+            [FromBody] CreateUserProfileDTO dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            int userId = GetUserId();
+            var result = await _userProfile.CreateProfileAsync(userId, dto);
+
+            return Ok(result);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateProfile(
+            [FromBody] UpdateUserProfileDTO dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            int userId = GetUserId();
+            var result = await _userProfile.UpdateProfileAsync(userId, dto);
+
+            return Ok(result);
+        }
+
+        private int GetUserId()
+        {
+            return int.Parse(
+                User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value
+            );
+        }
+    }
+}
