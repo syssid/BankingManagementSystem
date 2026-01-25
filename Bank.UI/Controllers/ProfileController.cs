@@ -1,8 +1,10 @@
 ﻿using Bank.UI.Models.Profile;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.UI.Controllers
 {
+    [Authorize]
     public class ProfileController : BaseController
     {
         private readonly HttpClient _httpClient;
@@ -14,6 +16,7 @@ namespace Bank.UI.Controllers
 
         public async Task<IActionResult> ProfilePartial()
         {
+            AttachToken(_httpClient);
             var response = await _httpClient.GetAsync("api/user/profile");
 
             if (!response.IsSuccessStatusCode)
