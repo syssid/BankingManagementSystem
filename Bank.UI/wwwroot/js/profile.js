@@ -21,28 +21,50 @@ function openProfileModal() {
         .finally(() => Loader.hide());
 }
 
-function saveProfile() {
+function saveProfile(flag) {
+    console.log(flag);
     Loader.show();
 
     const form = document.getElementById("profileForm");
     const data = new FormData(form);
-
-    fetch("/Profile/Update", {
-        method: "POST",
-        body: data
-    })
-        .then(res => {
-            if (!res.ok) throw new Error();
-            return res.text();
+    if (flag) {
+        fetch("/Profile/AddUserDetails", {
+            method: "POST",
+            body: data
         })
-        .then(msg => {
-            const alert = document.getElementById("profileMsg");
-            alert.className = "alert alert-success";
-            alert.innerText = msg;
-            alert.classList.remove("d-none");
+            .then(res => {
+                if (!res.ok) throw new Error();
+                return res.text();
+            })
+            .then(msg => {
+                const alert = document.getElementById("profileMsg");
+                alert.className = "alert alert-success";
+                alert.innerText = msg;
+                alert.classList.remove("d-none");
+            })
+            .catch(() => {
+                alert("Failed to add profile details");
+            })
+            .finally(() => Loader.hide());
+    }
+    else {
+        fetch("/Profile/UpdateUserDetails", {
+            method: "PUT",
+            body: data
         })
-        .catch(() => {
-            alert("Failed to update profile");
-        })
-        .finally(() => Loader.hide());
+            .then(res => {
+                if (!res.ok) throw new Error();
+                return res.text();
+            })
+            .then(msg => {
+                const alert = document.getElementById("profileMsg");
+                alert.className = "alert alert-success";
+                alert.innerText = msg;
+                alert.classList.remove("d-none");
+            })
+            .catch(() => {
+                alert("Failed to update profile details");
+            })
+            .finally(() => Loader.hide());
+    }
 }

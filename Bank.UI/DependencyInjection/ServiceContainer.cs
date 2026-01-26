@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bank.UI.Filters;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Bank.UI.DependencyInjection
 {
@@ -19,12 +20,17 @@ namespace Bank.UI.DependencyInjection
                 });
             });
 
+            services.AddHttpContextAccessor();
+            services.AddSession(); // Make sure session is enabled
+
+            services.AddTransient<AuthTokenHandler>();
             services.AddHttpClient("BankAPI", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7100"); // Replace with your API base URL
                 client.DefaultRequestHeaders.Accept.Add(
                     new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-            });
+            }).AddHttpMessageHandler<AuthTokenHandler>();
+
 
             services.AddDistributedMemoryCache();
             services.AddSession(options =>

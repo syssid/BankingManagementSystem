@@ -9,7 +9,6 @@ using System.Security.Claims;
 
 namespace Bank.API.Controllers
 {
-    [Route("api/user/profile")]
     [ApiController]
     [Authorize]
     public class UserProfileController : ControllerBase
@@ -21,7 +20,7 @@ namespace Bank.API.Controllers
             _userProfile = userProfile;
         }
 
-        [HttpGet]
+        [HttpGet("api/user/profile")]
         public async Task<ActionResult<UserProfileDetailsResponse>> GetProfile()
         {
             int userId = GetUserId();
@@ -30,7 +29,7 @@ namespace Bank.API.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost("api/user/profile-add")]
         public async Task<ActionResult<CreateUserProfileResponse>> CreateProfile(
             [FromBody] CreateUserProfileDTO dto)
         {
@@ -43,7 +42,7 @@ namespace Bank.API.Controllers
             return Ok(result);
         }
 
-        [HttpPut]
+        [HttpPut("api/user/profile-update")]
         public async Task<ActionResult<UpdateUserProfileResponse>> UpdateProfile(
             [FromBody] UpdateUserProfileDTO dto)
         {
