@@ -1,4 +1,15 @@
-﻿function openProfileModal() {
+﻿ function enableEdit() {
+        // Enable all editable fields
+        document.querySelectorAll('.profile-field').forEach(el => {
+            el.disabled = false;
+        });
+
+    // Toggle buttons
+    document.getElementById('editBtn').classList.add('d-none');
+    document.getElementById('saveBtn').classList.remove('d-none');
+ }
+
+function openProfileModal() {
     Loader.show();
 
     fetch("/Profile/ProfilePartial")

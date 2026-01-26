@@ -1,16 +1,21 @@
-﻿@using Bank.UI.Models.Profile
-@model ProfileViewModel
+﻿@using Bank.UI.Models.Profile.Response
+@model UserProfileDetailsResponse
 
 <div class="modal-header">
     <h5 class="modal-title">My Profile</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
 </div>
 
 <div class="modal-body">
     <form id="profileForm">
+
+        <input asp-for="UserId" type="hidden" />
+        <input asp-for="Flag" type="hidden" />
+        <input asp-for="Message" type="hidden" />
+
         <div class="mb-3">
             <label>Full Name</label>
-            <input asp-for="FullName" class="form-control" />
+            <input asp-for="Name" class="form-control profile-field" disabled />
         </div>
 
         <div class="mb-3">
@@ -20,8 +25,29 @@
 
         <div class="mb-3">
             <label>Mobile</label>
-            <input asp-for="Mobile" class="form-control" />
+            <input asp-for="Mobile" class="form-control profile-field" disabled />
         </div>
+
+        <div class="mb-3">
+            <label>Address</label>
+            <textarea asp-for="Address" class="form-control profile-field" rows="3" disabled></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label>Date of Birth</label>
+            <input asp-for="DateOfBirth" type="date" class="form-control profile-field" disabled />
+        </div>
+
+        <div class="mb-3">
+            <label>Gender</label>
+            <select asp-for="Gender" class="form-select profile-field" disabled>
+                <option value="">-- Select --</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+
     </form>
 
     <div id="profileMsg" class="alert d-none"></div>
@@ -29,5 +55,14 @@
 
 <div class="modal-footer">
     <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-    <button class="btn btn-primary" onclick="saveProfile()">Save Changes</button>
+
+    <!-- Edit button -->
+    <button id="editBtn" class="btn btn-warning" type="button" onclick="enableEdit()">
+        Edit Details
+    </button>
+
+    <!-- Save button (hidden initially) -->
+    <button id="saveBtn" class="btn btn-primary d-none" type="button" onclick="saveProfile()">
+        Save Changes
+    </button>
 </div>

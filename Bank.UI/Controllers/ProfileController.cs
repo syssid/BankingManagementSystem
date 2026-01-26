@@ -1,4 +1,5 @@
 ﻿using Bank.UI.Models.Profile;
+using Bank.UI.Models.Profile.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,7 @@ namespace Bank.UI.Controllers
             if (!response.IsSuccessStatusCode)
                 return PartialView("_ProfileError");
 
-            var model = await response.Content.ReadFromJsonAsync<ProfileViewModel>();
+            var model = await response.Content.ReadFromJsonAsync<UserProfileDetailsResponse>();
             return PartialView("_ProfilePartial", model);
         }
 
