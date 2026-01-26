@@ -48,9 +48,9 @@ namespace Bank.UI.Controllers
             return Ok("Profile updated successfully");
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateUserDetails (ProfileViewModel model)
+        public async Task<IActionResult> UpdateUserDetails (UpdateProfileViewModel model)
         {
-            var response = await _httpClient.PutAsJsonAsync("api/user/profile", model);
+            var response = await _httpClient.PutAsJsonAsync("api/user/profile-update", model);
 
             if (!response.IsSuccessStatusCode)
                 return BadRequest("Update failed");

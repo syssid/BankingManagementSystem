@@ -38,11 +38,11 @@
 
             @if (isCompleted)
             {
-                <input asp-for="Mobile" class="form-control" disabled maxlength="10" />
+                <input asp-for="Mobile" class="form-control" id="Mobile" readonly maxlength="10" />
             }
             else
             {
-                <input asp-for="Mobile" class="form-control" maxlength="10" />
+                <input asp-for="Mobile" class="form-control" id="Mobile" maxlength="10" />
             }
         </div>
 
@@ -52,11 +52,11 @@
             <label>Address</label>
             @if (isCompleted)
             {
-                <textarea asp-for="Address" class="form-control" rows="3" disabled></textarea>
+                <textarea asp-for="Address" class="form-control" id="Address" rows="2" readonly></textarea>
             }
             else
             {
-                <textarea asp-for="Address" class="form-control" rows="3"></textarea>
+                <textarea asp-for="Address" class="form-control" id="Address" rows="2"></textarea>
             }
         </div>
 
@@ -65,11 +65,11 @@
             <label>Date of Birth</label>
             @if (isCompleted)
             {
-                <input asp-for="DateOfBirth" type="date" class="form-control" disabled />
+                <input asp-for="DateOfBirth" type="date" id="DateOfBirth" class="form-control" readonly />
             }
             else
             {
-                <input asp-for="DateOfBirth" type="date" class="form-control" />
+                <input asp-for="DateOfBirth" type="date" id="DateOfBirth" class="form-control" />
             }
         </div>
 

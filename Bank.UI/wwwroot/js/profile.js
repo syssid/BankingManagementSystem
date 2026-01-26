@@ -1,13 +1,11 @@
-﻿ function enableEdit() {
-        // Enable all editable fields
-        document.querySelectorAll('.profile-field').forEach(el => {
-            el.disabled = false;
-        });
+﻿function enableEdit() {
+    $('#Address,#Mobile,#DateOfBirth').prop('readonly', false);
+    $('.form-select').prop('disabled', false);
 
     // Toggle buttons
-    document.getElementById('editBtn').classList.add('d-none');
-    document.getElementById('saveBtn').classList.remove('d-none');
- }
+    $('#editBtn').addClass('d-none');
+    $('#saveBtn').removeClass('d-none');
+}
 
 function openProfileModal() {
     Loader.show();
@@ -22,49 +20,52 @@ function openProfileModal() {
 }
 
 function saveProfile(flag) {
-    console.log(flag);
     Loader.show();
-
     const form = document.getElementById("profileForm");
     const data = new FormData(form);
-    if (flag) {
-        fetch("/Profile/AddUserDetails", {
-            method: "POST",
-            body: data
-        })
-            .then(res => {
-                if (!res.ok) throw new Error();
-                return res.text();
-            })
-            .then(msg => {
-                const alert = document.getElementById("profileMsg");
-                alert.className = "alert alert-success";
-                alert.innerText = msg;
-                alert.classList.remove("d-none");
-            })
-            .catch(() => {
-                alert("Failed to add profile details");
-            })
-            .finally(() => Loader.hide());
-    }
-    else {
-        fetch("/Profile/UpdateUserDetails", {
-            method: "PUT",
-            body: data
-        })
-            .then(res => {
-                if (!res.ok) throw new Error();
-                return res.text();
-            })
-            .then(msg => {
-                const alert = document.getElementById("profileMsg");
-                alert.className = "alert alert-success";
-                alert.innerText = msg;
-                alert.classList.remove("d-none");
-            })
-            .catch(() => {
-                alert("Failed to update profile details");
-            })
-            .finally(() => Loader.hide());
-    }
+
+    const url = flag
+        ? "/Profile/AddUserDetails"
+        : "/Profile/UpdateUserDetails";
+
+    const errorMsg = flag
+        ? "Failed to add profile details"
+        : "Failed to update profile details";
+
+    $.ajax({
+        url: url,
+        type: flag ? "POST" : "PUT",
+        data: data,
+        processData: false, // important for FormData
+        contentType: false, // important for FormData
+        success: function (msg) {
+            debugger;
+            const alertBox = $("#profileMsg");
+            alertBox
+                .removeClass("d-none alert-danger")
+                .addClass("alert alert-success")
+                .text(msg);
+
+            swal({
+                title: "Success",
+                text: msg,
+                icon: "success"
+            }).then(function () {
+                $('#profileModal').modal('hide');
+            });
+        },
+        error: function () {
+            debugger;
+            swal({
+                title: "Error",
+                text: errorMsg,
+                icon: "error"
+            }).then(function () {
+                $('#profileModal').modal('hide');
+            });
+        },
+        complete: function () {
+            Loader.hide();
+        }
+    });
 }
