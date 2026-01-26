@@ -41,7 +41,8 @@ namespace Bank.Infrastructure.Repository
                 profile.ApplicationUser?.Email,
                 profile.Mobile,
                 profile.Address,
-                profile.DateOfBirth
+                profile.DateOfBirth,
+                profile.Gender
             );
         }
 

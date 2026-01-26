@@ -1,0 +1,40 @@
+﻿/* Modal makeover */
+.modal-content {
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.15);
+    border: none;
+}
+
+/* Readable text */
+.modal-body label {
+    color: #2c2c2c;
+    font-weight: 500;
+}
+
+.modal-body input,
+.modal-body textarea,
+.modal-body select {
+    color: #212529;
+    background-color: #f8f9fa;
+}
+
+    /* Disabled look */
+    .modal-body input:disabled,
+    .modal-body textarea:disabled,
+    .modal-body select:disabled {
+        background-color: #e9ecef;
+        color: #6c757d;
+        cursor: not-allowed;
+    }
+
+/* Header polish */
+.modal-header {
+    background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+    color: #fff;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+}
+
+.modal-title {
+    font-weight: 600;
+}

@@ -19,6 +19,7 @@ namespace Bank.Application.DTO.Request.UserProfile
         public string? Mobile { get; set; }
 
         public string? Address { get; set; }
+        public string? Gender { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
     }

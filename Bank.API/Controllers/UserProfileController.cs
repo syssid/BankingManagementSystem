@@ -1,5 +1,7 @@
 ﻿using Bank.Application.Contracts;
 using Bank.Application.DTO.Request.UserProfile;
+using Bank.Application.DTO.Response;
+using Bank.Application.DTO.Response.UserProfile;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +22,7 @@ namespace Bank.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProfile()
+        public async Task<ActionResult<UserProfileDetailsResponse>> GetProfile()
         {
             int userId = GetUserId();
             var result = await _userProfile.GetProfileAsync(userId);
@@ -29,7 +31,7 @@ namespace Bank.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateProfile(
+        public async Task<ActionResult<CreateUserProfileResponse>> CreateProfile(
             [FromBody] CreateUserProfileDTO dto)
         {
             if (!ModelState.IsValid)
@@ -42,7 +44,7 @@ namespace Bank.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateProfile(
+        public async Task<ActionResult<UpdateUserProfileResponse>> UpdateProfile(
             [FromBody] UpdateUserProfileDTO dto)
         {
             if (!ModelState.IsValid)
