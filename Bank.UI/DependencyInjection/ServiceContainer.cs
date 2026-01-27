@@ -46,6 +46,7 @@ namespace Bank.UI.DependencyInjection
                         options.LoginPath = "/Home/Index";
                         options.LogoutPath = "/Logout/Logout";
                         options.AccessDeniedPath = "/Home/Index";
+                        options.AccessDeniedPath = "/Registration/RegistrationSuccess";
                     });
 
             services.AddAuthorization();
