@@ -1,0 +1,186 @@
+﻿
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+    body {
+        background: linear-gradient(135deg, #0f0f0f, #1e1e1e);
+        color: #fff;
+    }
+
+    .card {
+        border-radius: 8px;
+    }
+
+    .info-card {
+        background: #ffffff;
+        color: #000;
+        padding: 25px;
+        margin-bottom: 25px;
+    }
+
+        .info-card p {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+    .stat-card {
+        background: #1f2933;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+        .stat-card h3 {
+            margin: 0;
+            font-size: 26px;
+            color: #4ade80;
+        }
+
+        .stat-card span {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+    .account-header {
+        background: #ffffff;
+        color: #000;
+        padding: 12px 20px;
+        font-size: 18px;
+        font-weight: 600;
+        display: inline-block;
+        border-radius: 4px;
+        margin-bottom: 15px;
+    }
+
+    .transaction-table th {
+        background: #111827;
+        color: #fff;
+    }
+
+    .transaction-table td {
+        background: #1f2933;
+        color: #e5e7eb;
+    }
+
+    .badge-success {
+        background-color: #22c55e;
+    }
+
+    .badge-warning {
+        background-color: #facc15;
+        color: #000;
+    }
+
+    .quick-actions button {
+        margin-right: 10px;
+    }
+</style>
+
+<div class="container-fluid mt-4">
+
+    <!-- Account Info -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="info-card card">
+                <h5 class="mb-3"><i class="bi bi-person-circle"></i> Account Holder Information</h5>
+                <p><strong>Name:</strong> ____________</p>
+                <p><strong>Branch:</strong> __________________</p>
+                <p><strong>IFSC Code:</strong> XXXXXXXX</p>
+                <p><strong>PAN:</strong> XXXXX1234X</p>
+                <p><strong>KYC Status:</strong> <span class="badge badge-success">Verified</span></p>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="stat-card">
+                        <h3>₹ 2,45,670</h3>
+                        <span>Available Balance</span>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="stat-card">
+                        <h3>₹ 50,000</h3>
+                        <span>Hold Amount</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="stat-card">
+                        <h3>Active</h3>
+                        <span>Account Status</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="stat-card">
+                        <h3>Savings</h3>
+                        <span>Account Type</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Operative Account -->
+    <div class="account-header mt-4">
+        Operative Account – 0087667564674564654
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions mb-3">
+        <button class="btn btn-success"><i class="bi bi-arrow-up-circle"></i> Credit</button>
+        <button class="btn btn-danger"><i class="bi bi-arrow-down-circle"></i> Debit</button>
+        <button class="btn btn-primary"><i class="bi bi-receipt"></i> Statement</button>
+        <button class="btn btn-warning"><i class="bi bi-lock"></i> Freeze Account</button>
+    </div>
+
+    <!-- Transactions -->
+    <div class="card">
+        <div class="card-header bg-dark text-white">
+            <strong>Recent Transactions</strong>
+            <span class="float-right">
+                <a href="#" class="text-info mr-3">Last 10</a>
+                <a href="#" class="text-info">All</a>
+            </span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table transaction-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Reference</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>22-Jan-2026</td>
+                        <td>TXN123456</td>
+                        <td>Credit</td>
+                        <td>₹ 10,000</td>
+                        <td><span class="badge badge-success">Success</span></td>
+                    </tr>
+                    <tr>
+                        <td>20-Jan-2026</td>
+                        <td>TXN123455</td>
+                        <td>Debit</td>
+                        <td>₹ 2,500</td>
+                        <td><span class="badge badge-success">Success</span></td>
+                    </tr>
+                    <tr>
+                        <td>18-Jan-2026</td>
+                        <td>TXN123454</td>
+                        <td>Debit</td>
+                        <td>₹ 7,000</td>
+                        <td><span class="badge badge-warning">Pending</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

@@ -1,6 +1,10 @@
 ﻿@using Bank.UI.Models.Profile.Response
 @model UserProfileDetailsResponse
 
+@{
+    bool isCompleted = Model.Flag;
+}
+
 <div class="modal-header">
     <h5 class="modal-title">My Profile</h5>
     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -11,58 +15,118 @@
 
         <input asp-for="UserId" type="hidden" />
         <input asp-for="Flag" type="hidden" />
-        <input asp-for="Message" type="hidden" />
 
+        <!-- Name -->
         <div class="mb-3">
             <label>Full Name</label>
-            <input asp-for="Name" class="form-control profile-field" disabled />
+            <input asp-for="Name"
+                   class="form-control"
+                   readonly />
         </div>
 
+        <!-- Email -->
         <div class="mb-3">
             <label>Email</label>
-            <input asp-for="Email" class="form-control" readonly />
+            <input asp-for="Email"
+                   class="form-control"
+                   readonly />
         </div>
 
+        <!-- Mobile -->
         <div class="mb-3">
             <label>Mobile</label>
-            <input asp-for="Mobile" class="form-control profile-field" disabled />
+
+            @if (isCompleted)
+            {
+                <input asp-for="Mobile" class="form-control" id="Mobile" readonly maxlength="10" />
+            }
+            else
+            {
+                <input asp-for="Mobile" class="form-control" id="Mobile" maxlength="10" />
+            }
         </div>
 
+
+        <!-- Address -->
         <div class="mb-3">
             <label>Address</label>
-            <textarea asp-for="Address" class="form-control profile-field" rows="3" disabled></textarea>
+            @if (isCompleted)
+            {
+                <textarea asp-for="Address" class="form-control" id="Address" rows="2" readonly></textarea>
+            }
+            else
+            {
+                <textarea asp-for="Address" class="form-control" id="Address" rows="2"></textarea>
+            }
         </div>
 
+        <!-- DOB -->
         <div class="mb-3">
             <label>Date of Birth</label>
-            <input asp-for="DateOfBirth" type="date" class="form-control profile-field" disabled />
+            @if (isCompleted)
+            {
+                <input asp-for="DateOfBirth" type="date" id="DateOfBirth" class="form-control" readonly />
+            }
+            else
+            {
+                <input asp-for="DateOfBirth" type="date" id="DateOfBirth" class="form-control" />
+            }
         </div>
 
+        <!-- Gender -->
         <div class="mb-3">
             <label>Gender</label>
-            <select asp-for="Gender" class="form-select profile-field" disabled>
-                <option value="">-- Select --</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Other">Other</option>
-            </select>
+            @if (isCompleted)
+            {
+                <select asp-for="Gender" class="form-select" disabled>
+                    <option value="">-- Select --</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            }
+            else
+            {
+                <select asp-for="Gender" class="form-select">
+                    <option value="">-- Select --</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            }
+
         </div>
 
     </form>
-
-    <div id="profileMsg" class="alert d-none"></div>
 </div>
 
 <div class="modal-footer">
     <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-    <!-- Edit button -->
-    <button id="editBtn" class="btn btn-warning" type="button" onclick="enableEdit()">
-        Edit Details
-    </button>
+    @if (!isCompleted)
+    {
+        <!-- First-time profile completion -->
+        <button class="btn btn-primary"
+                type="button"
+                onclick="saveProfile('false')">
+            Save Changes
+        </button>
+    }
+    else
+    {
+        <!-- Existing profile -->
+        <button id="editBtn"
+                class="btn btn-warning"
+                type="button"
+                onclick="enableEdit()">
+            Edit Details
+        </button>
 
-    <!-- Save button (hidden initially) -->
-    <button id="saveBtn" class="btn btn-primary d-none" type="button" onclick="saveProfile()">
-        Save Changes
-    </button>
+        <button id="saveBtn"
+                class="btn btn-primary d-none"
+                type="button"
+                onclick="saveProfile()">
+            Save Changes
+        </button>
+    }
 </div>
